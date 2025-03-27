@@ -60,78 +60,87 @@ function updateProgress() {
 }
 
 function analizarRespuestas() {
-const respuestas = {};
-for (let i = 1; i <= preguntas.length; i++) {
-const seleccionada = document.querySelector(`input[name="q${i}"]:checked`);
-if (!seleccionada) {
-  alert("Por favor, responde todas las preguntas.");
-  return;
-}
-respuestas[`q${i}`] = seleccionada.value;
-}
+    const respuestas = {};
+    for (let i = 1; i <= preguntas.length; i++) {
+      const seleccionada = document.querySelector(`input[name="q${i}"]:checked`);
+      if (!seleccionada) {
+        alert("Por favor, responde todas las preguntas.");
+        return;
+      }
+      respuestas[`q${i}`] = seleccionada.value;
+    }
 
-  let item1 = 0, item2 = 0, item3 = 0, item4 = 0;
-  if (respuestas.q1 === 'si') item1++;
-  if (respuestas.q5 === 'si') item1++;
-  if (respuestas.q9 === 'si') item1++;
-  if (respuestas.q13 === 'si') item1++;
-  if (respuestas.q17 === 'si') item1++;
+    let item1 = 0, item2 = 0, item3 = 0, item4 = 0;
 
-  if (respuestas.q2 === 'si') item2++;
-  if (respuestas.q6 === 'si') item2++;
-  if (respuestas.q10 === 'si') item2++;
-  if (respuestas.q14 === 'si') item2++;
-  if (respuestas.q18 === 'si') item2++;
+    // Ítem 1: preguntas 1, 5, 9, 13, 17 — se cuentan NO
+    if (respuestas.q1 === 'no') item1++;
+    if (respuestas.q5 === 'no') item1++;
+    if (respuestas.q9 === 'no') item1++;
+    if (respuestas.q13 === 'no') item1++;
+    if (respuestas.q17 === 'no') item1++;
 
-  if (respuestas.q3 === 'no') item3++;
-  if (respuestas.q7 === 'no') item3++;
-  if (respuestas.q11 === 'si') item3++;
-  if (respuestas.q15 === 'si') item3++;
-  if (respuestas.q19 === 'si') item3++;
+    // Ítem 2: preguntas 2, 6, 10, 14, 18 — se cuentan NO
+    if (respuestas.q2 === 'no') item2++;
+    if (respuestas.q6 === 'no') item2++;
+    if (respuestas.q10 === 'no') item2++;
+    if (respuestas.q14 === 'no') item2++;
+    if (respuestas.q18 === 'no') item2++;
 
-  if (respuestas.q4 === 'si') item4++;
-  if (respuestas.q8 === 'si') item4++;
-  if (respuestas.q12 === 'si') item4++;
-  if (respuestas.q16 === 'si') item4++;
-  if (respuestas.q20 === 'si') item4++;
+    // Ítem 3: preguntas 3, 7 (NO) — 11, 15, 19 (SÍ) - Esto debería permanecer igual
+    if (respuestas.q3 === 'no') item3++;
+    if (respuestas.q7 === 'no') item3++;
+    if (respuestas.q11 === 'si') item3++;
+    if (respuestas.q15 === 'si') item3++;
+    if (respuestas.q19 === 'si') item3++;
 
-  const r1 = item1 === 5 ?
-    "Ud. sabe escuchar sin interrumpir. Su paciencia le permitirá generar muy buenas relaciones." :
-    item1 >= 3 ?
-    "A veces Ud. se pone a hablar encima de la otra persona... Si Ud. permitiera que las personas terminen antes de comenzar a hablar, sus contactos con ellas serán más simples y satisfactorios." :
-    "Ud. parece estar tan ansioso por hablar que no puede escuchar... ¿Cómo puede relacionarse con las personas si no las escucha?";
+    // Ítem 4: preguntas 4, 8, 12 (SÍ) — 16, 20 (NO) - Esto debería permanecer igual
+    if (respuestas.q4 === 'si') item4++;
+    if (respuestas.q8 === 'si') item4++;
+    if (respuestas.q12 === 'si') item4++;
+    if (respuestas.q16 === 'no') item4++;
+    if (respuestas.q20 === 'no') item4++;
 
-  const r2 = item2 === 5 ?
-    "Ud. tiene la disciplina y serenidad para prestar a las personas la atención que merecen. Esto le permitirá desarrollar excelentes relaciones interpersonales. ¡Felicitaciones!" :
-    item2 >= 3 ?
-    "Si lograra no desconcentrarse, Ud. lograría contactos personales más duraderos y satisfactorios." :
-    "Seguramente Ud. con frecuencia se encuentra diciendo... ¿Qué? ¿Cómo? ¿Qué dijo? Reconozca que entender a las personas requiere el 100% de su atención...!!!";
+    // Interpretación por ítem
+    const r1 = item1 === 5 ?
+      "Ud. sabe escuchar sin interrumpir. Su paciencia le permitirá generar muy buenas relaciones." :
+      item1 >= 3 ?
+      "A veces Ud. se pone a hablar encima de la otra persona... Si Ud. permitiera que las personas terminen antes de comenzar a hablar, sus contactos con ellas serán más simples y satisfactorios." :
+      "Ud. parece estar tan ansioso por hablar que no puede escuchar... ¿Cómo puede relacionarse con las personas si no las escucha?";
 
-  const r3 = item3 === 5 ?
-    "Ud. es un oyente empático... logra percibir cómo se sienten las personas con que habla... Ud. tiene la capacidad para entender y ayudar a las personas..." :
-    item3 >= 3 ?
-    "Ud. se da cuenta de cómo se sienten las personas... pero le da más peso al mensaje explícito..." :
-    "Ud. no parece darse cuenta de cómo se sienten las personas con que habla...";
+    const r2 = item2 === 5 ?
+      "Ud. tiene la disciplina y serenidad para prestar a las personas la atención que merecen. Esto le permitirá desarrollar excelentes relaciones interpersonales. ¡Felicitaciones!" :
+      item2 >= 3 ?
+      "Si lograra no desconcentrarse, Ud. lograría contactos personales más duraderos y satisfactorios." :
+      "Seguramente Ud. con frecuencia se encuentra diciendo... ¿Qué? ¿Cómo? ¿Qué dijo? Reconozca que entender a las personas requiere el 100% de su atención...!!!";
 
-  const r4 = item4 === 5 ?
-    "Ud. hace todo lo necesario para que la otra persona se pueda expresar... Ud. logrará contactos muy satisfactorios..." :
-    item4 >= 3 ?
-    "Ud. es un oyente activo... pero no está haciendo todo lo posible..." :
-    "Ud. parece no querer involucrarse demasiado en sus contactos...";
+    const r3 = item3 === 5 ?
+      "Ud. es un oyente empático... logra percibir cómo se sienten las personas con que habla... Ud. tiene la capacidad para entender y ayudar a las personas..." :
+      item3 >= 3 ?
+      "Ud. se da cuenta de cómo se sienten las personas... pero le da más peso al mensaje explícito..." :
+      "Ud. no parece darse cuenta de cómo se sienten las personas con que habla...";
 
+    const r4 = item4 === 5 ?
+      "Ud. hace todo lo necesario para que la otra persona se pueda expresar... Ud. logrará contactos muy satisfactorios..." :
+      item4 >= 3 ?
+      "Ud. es un oyente activo... pero no está haciendo todo lo posible..." :
+      "Ud. parece no querer involucrarse demasiado en sus contactos...";
+
+    // Mostrar resultados
     const resultHTML = `
-<div id="reporte">
-  <h3 class="text-center">Informe de Escucha Activa</h3>
-  <div class="card mb-3"><div class="card-header bg-primary text-white">Escuchar sin interrumpir</div><div class="card-body">${r1}</div></div>
-  <div class="card mb-3"><div class="card-header bg-success text-white">Atención plena</div><div class="card-body">${r2}</div></div>
-  <div class="card mb-3"><div class="card-header bg-info text-white">Percibir emociones</div><div class="card-body">${r3}</div></div>
-  <div class="card mb-3"><div class="card-header bg-warning text-dark">Facilitar la expresión</div><div class="card-body">${r4}</div></div>
-</div>
-`;
-document.getElementById("result").innerHTML = resultHTML;
-document.getElementById("resultSection").style.display = "block";
-document.getElementById("resultSection").scrollIntoView({ behavior: 'smooth' });
-}
+    <div id="reporte">
+      <h3 class="text-center">Informe de Escucha Activa</h3>
+      <div class="card mb-3"><div class="card-header bg-primary text-white">Escuchar sin interrumpir</div><div class="card-body">${r1}</div></div>
+      <div class="card mb-3"><div class="card-header bg-success text-white">Atención plena</div><div class="card-body">${r2}</div></div>
+      <div class="card mb-3"><div class="card-header bg-info text-white">Percibir emociones</div><div class="card-body">${r3}</div></div>
+      <div class="card mb-3"><div class="card-header bg-warning text-dark">Facilitar la expresión</div><div class="card-body">${r4}</div></div>
+    </div>
+    `;
+
+    document.getElementById("result").innerHTML = resultHTML;
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("resultSection").scrollIntoView({ behavior: 'smooth' });
+  }
+  
 
 function descargarPDF() {
 const element = document.getElementById("reporte");

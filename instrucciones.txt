@@ -1,0 +1,5 @@
+1. Subir ambos archivos a una carpeta en Canvas
+2. Enlazar un link a index.html
+3. En el código del enlace:
+	a. Eliminar la clase "instructure_file_link"
+	b. Cambiar ?wrap=1 por /download 
